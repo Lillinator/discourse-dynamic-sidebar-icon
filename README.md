@@ -3,22 +3,22 @@
 ### 👩‍💻 Summary
 A lightweight Discourse theme component that dynamically changes the header's sidebar toggle icon based on whether the sidebar is open or closed. 
 
-By default, the component displays the standard hamburger menu (`bars`) when the sidebar is closed, and transitions to a close icon (`xmark`) when the sidebar is open. 
+By default, the component displays the standard hamburger menu icon  (`bars`) when the sidebar is closed, and transitions to a close X icon (`xmark`) when the sidebar is open.  Admins can specify custom icons instead if they wish, and also choose to enable for mobile view (while the dynamic aspect of the component only applies to non-mobile viewport sizes, admins that change the open icon may want consistency with their mobile UX).
 
 ### ⭐ Features
 * Gives users clear visual feedback on how to interact with the sidebar.
 * Admins can easily replace the default icons with any FontAwesome icon via the theme settings.
-* This component is exclusively for desktop and tablet viewports; it has no effect on mobile.
+* Allows enabling a replaced sidebar icon for mobile viewport for UX consistency.
 
 ### 🔧 Settings
 
-You can customize the icons used by editing the component's settings:
+Customize the icons used for opening and closing the sidebar by editing the component's settings:
 
-| setting | description |
+|setting | description|
 |--- | ---|
-| `icon_to_open_the_sidebar` | The icon displayed when the sidebar is collapsed (Default: `bars`) |
-| `icon_to_close_the_sidebar` | The icon displayed when the sidebar is expanded (Default: `xmark`) |
-
+|`Icon_to_open_the_sidebar` | the icon displayed when the sidebar is collapsed<br /> (default: `bars`)|
+|`Icon_to_close_the_sidebar` | the icon displayed when the sidebar is expanded<br /> (default: `xmark`)|
+|`Apply_open_icon_on_mobile` | apply the custom 'open' icon on mobile viewport <br />(default: `false`)|
 
 ### :warning: Important Notes
 
