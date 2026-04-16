@@ -1,0 +1,8 @@
+{
+  "name": "discourse X-sidebar close",
+  "component": true,
+  "authors": "Lilly",
+  "about_url": "https://github.com/Lillinator/discourse-x-sidebar-close/blob/main/README.md",
+  "license_url": "https://github.com/Lillinator/discourse-x-sidebar-close/blob/main/LICENSE",
+  "theme_version": "1.0.0"
+}
