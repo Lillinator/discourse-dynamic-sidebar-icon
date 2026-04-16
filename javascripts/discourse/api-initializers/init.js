@@ -1,21 +1,27 @@
 import { apiInitializer } from "discourse/lib/api";
 
 export default apiInitializer("1.8.0", (api) => {
+  // 1. Look up the Discourse site service
+  const site = api.container.lookup("service:site");
+  
+  // 2. If it's a mobile viewport, exit immediately and do nothing!
+  // (Note: Discourse considers most tablets as "desktop", which matches your goal)
+  if (site.mobileView) {
+    return;
+  }
+
   let toggleSvgUseEl;
 
   const updateIcon = () => {
     if (!toggleSvgUseEl) return;
     
-    // Check the body classes to see if the sidebar is open
-    const isOpen = 
-      document.body.classList.contains("has-sidebar-page") || 
-      document.body.classList.contains("sidebar-open");
+    // We can safely remove the "sidebar-open" check now, 
+    // because that class is specifically used for the mobile drawer!
+    const isOpen = document.body.classList.contains("has-sidebar-page");
                    
-    // Grab the values right from your settings.yml
     const openIcon = settings.icon_to_open_the_sidebar;
     const closeIcon = settings.icon_to_close_the_sidebar;
 
-    // Apply the chosen setting (prepended with the '#' that the SVG href requires)
     toggleSvgUseEl.setAttribute("href", isOpen ? `#${closeIcon}` : `#${openIcon}`);
   };
 
