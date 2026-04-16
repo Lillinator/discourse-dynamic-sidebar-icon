@@ -6,66 +6,48 @@ export default apiInitializer("1.8.0", (api) => {
   const applyOnMobile = settings.apply_open_icon_on_mobile;
 
   let toggleSvgUseEl;
-  let observer;
 
-  // The function to swap icons on desktop
   const updateIcon = () => {
     if (!toggleSvgUseEl) return;
-    const isOpen = document.body.classList.contains("has-sidebar-page");
+    
+    // Check both classes:
+    // 'has-sidebar-page' is the desktop/tablet sidebar
+    // 'sidebar-open' or 'drawer-open' are used for the mobile drawer 
+    // (Depending on the exact Discourse version, 'has-sidebar-page' might even be present on mobile!)
+    const isOpen = 
+      document.body.classList.contains("has-sidebar-page") || 
+      document.body.classList.contains("sidebar-open") ||
+      document.body.classList.contains("drawer-open"); // Added for safety across versions
+
+    // Look up the site service dynamically inside the function to avoid the boot-time deprecation
+    const site = api.container.lookup("service:site");
+
+    // If we are on mobile AND the admin set the setting to false, 
+    // we force the default "bars" icon regardless of state.
+    if (site.mobileView && !applyOnMobile) {
+      toggleSvgUseEl.setAttribute("href", "#bars");
+      return;
+    }
+
+    // Otherwise, apply the dynamic logic!
     toggleSvgUseEl.setAttribute("href", isOpen ? `#${closeIcon}` : `#${openIcon}`);
   };
 
-  // Turn ON the observer for desktop
-  const setupObserver = () => {
-    if (observer) return; // already running
-    observer = new MutationObserver((mutations) => {
-      for (let m of mutations) {
-        if (m.attributeName === "class") updateIcon();
+  // Run universally on all devices
+  const observer = new MutationObserver((mutations) => {
+    for (let m of mutations) {
+      if (m.attributeName === "class") {
+        updateIcon();
       }
-    });
-    observer.observe(document.body, { attributes: true });
-  };
-
-  // Turn OFF the observer for mobile (saves memory!)
-  const teardownObserver = () => {
-    if (observer) {
-      observer.disconnect();
-      observer = null;
     }
-  };
+  });
+  
+  observer.observe(document.body, { attributes: true });
 
-  // The core logic that checks the viewport
-  const handleViewportChange = (e) => {
-    const isDesktop = e.matches; // true if screen is >= 768px
-
+  api.onAppEvent("page:changed", () => {
     requestAnimationFrame(() => {
       toggleSvgUseEl = document.querySelector(".header-sidebar-toggle svg use");
-      if (!toggleSvgUseEl) return;
-
-      if (isDesktop) {
-        setupObserver();
-        updateIcon();
-      } else {
-        teardownObserver();
-        
-        // Handle your new mobile setting!
-        if (applyOnMobile) {
-          toggleSvgUseEl.setAttribute("href", `#${openIcon}`);
-        } else {
-          toggleSvgUseEl.setAttribute("href", "#bars");
-        }
-      }
+      updateIcon();
     });
-  };
-
-  // JS equivalent of Discourse's SCSS viewport breakpoints (md = 768px)
-  const desktopQuery = window.matchMedia("(min-width: 768px)");
-
-  // Listen for browser window resizes
-  desktopQuery.addEventListener("change", handleViewportChange);
-
-  // Run every time the page changes/loads
-  api.onAppEvent("page:changed", () => {
-    handleViewportChange(desktopQuery);
   });
 });
