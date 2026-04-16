@@ -1,28 +1,36 @@
 import { apiInitializer } from "discourse/lib/api";
 
 export default apiInitializer("1.8.0", (api) => {
-  
-// ** Look up the Discourse site service and exit if viewport is mobile size ** //
-  
-  const site = api.container.lookup("service:site");
-  
-  if (site.mobileView) {
-    return;
-  }
+  const openIcon = settings.icon_to_open_the_sidebar;
+  const closeIcon = settings.icon_to_close_the_sidebar;
+  const applyOnMobile = settings.apply_open_icon_on_mobile;
 
-  let toggleSvgUseEl;
+  const desktopQuery = window.matchMedia("(min-width: 768px)");
 
   const updateIcon = () => {
-    if (!toggleSvgUseEl) return;
+    const toggleEls = document.querySelectorAll(
+      ".header-sidebar-toggle svg use, .hamburger-dropdown svg use"
+    );
     
-    const isOpen = document.body.classList.contains("has-sidebar-page");
+    if (toggleEls.length === 0) return;
 
-// ** Use the replacement icon settings ** //
-                   
-    const openIcon = settings.icon_to_open_the_sidebar;
-    const closeIcon = settings.icon_to_close_the_sidebar;
+    const isDesktop = desktopQuery.matches;
 
-    toggleSvgUseEl.setAttribute("href", isOpen ? `#${closeIcon}` : `#${openIcon}`);
+    if (!isDesktop && !applyOnMobile) {
+      toggleEls.forEach((el) => {
+        el.setAttribute("href", "#bars");
+      });
+      return; 
+    }
+    
+    const isOpen = 
+      document.body.classList.contains("has-sidebar-page") || 
+      document.body.classList.contains("sidebar-open") ||
+      document.body.classList.contains("drawer-open");
+
+    toggleEls.forEach((el) => {
+      el.setAttribute("href", isOpen ? `#${closeIcon}` : `#${openIcon}`);
+    });
   };
 
   const observer = new MutationObserver((mutations) => {
@@ -37,8 +45,11 @@ export default apiInitializer("1.8.0", (api) => {
 
   api.onAppEvent("page:changed", () => {
     requestAnimationFrame(() => {
-      toggleSvgUseEl = document.querySelector(".header-sidebar-toggle svg use");
       updateIcon();
     });
+  });
+
+  desktopQuery.addEventListener("change", () => {
+    updateIcon();
   });
 });
