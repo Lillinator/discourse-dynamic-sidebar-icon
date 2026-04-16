@@ -1,0 +1,11 @@
+icon_to_open_the_sidebar:
+  type: string
+  default: "bars"
+  description:
+    en: "Icon to open the sidebar menu when it is closed."
+
+icon_to_close_the_sidebar:
+  type: string
+  default: "xmark"
+  description:
+    en: "Icon to close the sidebar menu when it is open."
