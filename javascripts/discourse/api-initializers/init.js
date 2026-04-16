@@ -6,18 +6,19 @@ export default apiInitializer("1.8.0", (api) => {
   const updateIcon = () => {
     if (!toggleSvgUseEl) return;
     
-    // Check the body classes you noticed. 
-    // 'has-sidebar-page' handles the desktop sidebar.
-    // 'sidebar-open' handles the mobile drawer in newer versions.
+    // Check the body classes to see if the sidebar is open
     const isOpen = 
       document.body.classList.contains("has-sidebar-page") || 
       document.body.classList.contains("sidebar-open");
                    
-    toggleSvgUseEl.setAttribute("href", isOpen ? "#xmark" : "#bars");
+    // Grab the values right from your settings.yml
+    const openIcon = settings.icon_to_open_the_sidebar;
+    const closeIcon = settings.icon_to_close_the_sidebar;
+
+    // Apply the chosen setting (prepended with the '#' that the SVG href requires)
+    toggleSvgUseEl.setAttribute("href", isOpen ? `#${closeIcon}` : `#${openIcon}`);
   };
 
-  // 1. Observe the body for class changes. 
-  // This triggers instantly the moment the user clicks the hamburger toggle.
   const observer = new MutationObserver((mutations) => {
     for (let m of mutations) {
       if (m.attributeName === "class") {
@@ -28,9 +29,7 @@ export default apiInitializer("1.8.0", (api) => {
   
   observer.observe(document.body, { attributes: true });
 
-  // 2. Grab the SVG element when the app loads or transitions between routes.
   api.onAppEvent("page:changed", () => {
-    // requestAnimationFrame ensures the DOM has settled before we query
     requestAnimationFrame(() => {
       toggleSvgUseEl = document.querySelector(".header-sidebar-toggle svg use");
       updateIcon();
