@@ -27,6 +27,6 @@ If you change the theme settings to use a custom icon that isn't already include
 ---
 **Discourse Meta Topic**: 
 
-**Support**: For issues or feature requests, please post in the [Meta topic](https://meta.discourse.org/) or start a PR on this repo.  
+**Support**: For issues or feature requests, please post in the [Meta topic](https://meta.discourse.org/t/discourse-dynamic-sidebar-icon/400765) or start a PR on this repo.  
 
 **To hire me or buy me coffee**: visit me here: [Lilly@Discourse Meta](https://meta.discourse.org/u/Lilly/summary).
