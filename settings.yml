@@ -5,7 +5,3 @@ icon_to_open_the_sidebar:
 icon_to_close_the_sidebar:
   type: string
   default: "xmark"
-
-apply_open_icon_on_mobile:
-  type: bool
-  default: false
