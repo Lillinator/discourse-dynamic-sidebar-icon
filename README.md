@@ -8,7 +8,7 @@ By default, the component displays the standard hamburger menu icon  (`bars`) wh
 ### ⭐ Features
 * Gives users clear visual feedback on how to interact with the sidebar.
 * Admins can easily replace the default icons with any FontAwesome icon via the theme settings.
-* Allows enabling a replaced sidebar icon for mobile viewport for UX consistency.
+* Allows enabling a replaced sidebar icon for mobile viewport UX consistency.
 
 ### 🔧 Settings
 
