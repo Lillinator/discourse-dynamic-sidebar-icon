@@ -1,20 +1,40 @@
 import { apiInitializer } from "discourse/lib/api";
-import { inject as service } from "@ember/service";
+import { service } from "@ember/service";
 
 export default apiInitializer("1.8.0", (api) => {
-  api.modifyClass("component:sidebar-toggle", {
+  // Intercept Discourse's universal button component
+  api.modifyClass("component:d-button", {
     pluginId: "dynamic-sidebar-icon",
     sidebarState: service(),
 
     get icon() {
-      // The `sidebarState` service is tracked, so Ember will automatically
-      // re-render the icon when the user clicks the toggle.
-      // We check multiple flags to safely handle both mobile and desktop states.
-      const isOpen = 
-        this.sidebarState.isSidebarExpanded || 
-        this.sidebarState.sidebarActive;
+      // Get the original icon passed to the button
+      const originalIcon = this.args?.icon;
 
-      return isOpen ? "xmark" : "bars";
-    },
+      // Only run our logic if it's trying to render the "bars" icon
+      if (originalIcon === "bars") {
+        
+        // Grab the CSS classes passed to the button
+        const btnClass = this.args?.class || "";
+        
+        // Ensure this is specifically the sidebar toggle button
+        if (
+          typeof btnClass === "string" && 
+          (btnClass.includes("sidebar-toggle") || btnClass.includes("hamburger"))
+        ) {
+          
+          // Check if the sidebar is currently open
+          const isOpen = 
+            this.sidebarState?.isSidebarExpanded || 
+            this.sidebarState?.sidebarActive;
+
+          // Swap the icon reactively
+          return isOpen ? "xmark" : "bars";
+        }
+      }
+
+      // For all other buttons (or if closed), render normally
+      return originalIcon;
+    }
   });
 });
