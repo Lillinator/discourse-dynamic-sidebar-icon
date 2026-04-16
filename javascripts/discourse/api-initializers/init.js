@@ -1,11 +1,11 @@
 import { apiInitializer } from "discourse/lib/api";
 
 export default apiInitializer("1.8.0", (api) => {
-  // 1. Look up the Discourse site service
+  
+// ** Look up the Discourse site service and exit if viewport is mobile size ** //
+  
   const site = api.container.lookup("service:site");
   
-  // 2. If it's a mobile viewport, exit immediately and do nothing!
-  // (Note: Discourse considers most tablets as "desktop", which matches your goal)
   if (site.mobileView) {
     return;
   }
@@ -15,9 +15,9 @@ export default apiInitializer("1.8.0", (api) => {
   const updateIcon = () => {
     if (!toggleSvgUseEl) return;
     
-    // We can safely remove the "sidebar-open" check now, 
-    // because that class is specifically used for the mobile drawer!
     const isOpen = document.body.classList.contains("has-sidebar-page");
+
+// ** use the replacement icon settings ** //
                    
     const openIcon = settings.icon_to_open_the_sidebar;
     const closeIcon = settings.icon_to_close_the_sidebar;
