@@ -17,7 +17,7 @@ export default apiInitializer("1.8.0", (api) => {
     
     const isOpen = document.body.classList.contains("has-sidebar-page");
 
-// ** use the replacement icon settings ** //
+// ** Use the replacement icon settings ** //
                    
     const openIcon = settings.icon_to_open_the_sidebar;
     const closeIcon = settings.icon_to_close_the_sidebar;
