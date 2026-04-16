@@ -3,7 +3,9 @@
 ### 👩‍💻 Summary
 A lightweight Discourse theme component that dynamically changes the header's sidebar toggle icon based on whether the sidebar is open or closed. 
 
-By default, the component displays the standard hamburger menu icon  (`bars`) when the sidebar is closed, and transitions to a close X icon (`xmark`) when the sidebar is open.  Admins can specify custom icons instead if they wish, and also choose to enable for mobile view (while the dynamic aspect of the component only applies to non-mobile viewport sizes, admins that change the open icon may want consistency with their mobile UX).
+By default, the component displays the standard hamburger menu icon  (`bars`) when the sidebar is closed, and transitions to a close X icon (`xmark`) when the sidebar is open.  
+
+Admins can specify custom icons instead if they wish, and also choose to enable for mobile view (while the dynamic aspect of the component only applies to non-mobile viewport sizes, admins that change the open icon may want consistency with their mobile UX).
 
 ### ⭐ Features
 * Gives users clear visual feedback on how to interact with the sidebar.
