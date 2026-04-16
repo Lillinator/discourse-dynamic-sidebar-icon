@@ -14,10 +14,13 @@ By default, the component displays the standard hamburger menu (`bars`) when the
 
 You can customize the icons used by editing the component's settings:
 
-* `icon_to_open_the_sidebar`: The icon displayed when the sidebar is collapsed (Default: `bars`).
-* `icon_to_close_the_sidebar`: The icon displayed when the sidebar is expanded (Default: `xmark`).
+| setting | description |
+|--- | ---|
+| `icon_to_open_the_sidebar` | The icon displayed when the sidebar is collapsed (Default: `bars`) |
+| `icon_to_close_the_sidebar` | The icon displayed when the sidebar is expanded (Default: `xmark`) |
 
-### ⚠️ Important Note on Custom Icons
+
+### 💡 Important Note on Custom Icons
 
 If you change the theme settings to use a custom icon that isn't already included in core Discourse, it will appear blank. To fix this, you must add your custom icon's name (e.g., `rocket`, `cat`) to the **`SVG icon subset`** site setting in your Discourse admin settings (see `All Site Settings` -> `SVG icon subset`)
 
