@@ -1,0 +1,8 @@
+{
+  "name": "Discourse Dynamic Sidebar Icon",
+  "component": true,
+  "authors": "Lilly",
+  "about_url": "https://github.com/Lillinator/discourse-dynamic-sidebar-icon/blob/main/README.md",
+  "license_url": "https://github.com/Lillinator/discourse-dynamic-sidebar-icon/blob/main/LICENSE",
+  "theme_version": "1.0.0"
+}

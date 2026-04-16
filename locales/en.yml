@@ -1,0 +1,6 @@
+en:
+  theme_metadata:
+    description: "Discourse Dynamic Sidebar Icon"
+    settings: 
+      icon_to_open_the_sidebar: "Icon to open the sidebar menu when it is closed."
+      icon_to_close_the_sidebar: "Icon to close the sidebar menu when it is open."
