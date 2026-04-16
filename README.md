@@ -20,9 +20,10 @@ You can customize the icons used by editing the component's settings:
 | `icon_to_close_the_sidebar` | The icon displayed when the sidebar is expanded (Default: `xmark`) |
 
 
-### 💡 Important Note on Custom Icons
+### :warning: Important Notes
 
-If you change the theme settings to use a custom icon that isn't already included in core Discourse, it will appear blank. To fix this, you must add your custom icon's name (e.g., `rocket`, `cat`) to the **`SVG icon subset`** site setting in your Discourse admin settings (see `All Site Settings` -> `SVG icon subset`)
+* If using custom icons that aren't already included in core Discourse, they will appear blank; to fix this, you must add the custom icons (e.g., `rocket`, `cat`) to the **`SVG icon subset`** site setting in your Discourse admin settings (see `All Site Settings` -> `SVG icon subset`). 
+* This component does not work with header drop down mode.
 
 ---
 **Discourse Meta Topic**: 
